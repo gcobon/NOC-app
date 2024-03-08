@@ -1,8 +1,9 @@
 
-
-
 node_modules/
 dist/
 
-
+##logs
 logs/
+
+# environment variables
+.env
