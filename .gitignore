@@ -7,3 +7,7 @@ logs/
 
 # environment variables
 .env
+
+
+#mongo
+mongo/
