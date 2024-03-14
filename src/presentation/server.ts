@@ -1,24 +1,31 @@
-import { CheckService } from '../domain/use-cases/checks/check-service';
 import { FileSystemDatasource } from '../infrastructure/datasources/file-system.datasource';
 import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository.impl';
-import { CronService } from './cron/cron-service';
+import { EmailService } from './email/email-service';
 
 const fileSystemLogRepository = new LogRepositoryImpl(
   new FileSystemDatasource()
 );
 
+const emailService = new EmailService();
+
 export class Server {
   public static start() {
     console.log('Server started...');
 
-    CronService.createJob('*/5 * * * * *', async () => {
-      const url = 'https://google.com';
+    //TODO: SEND EMAIL
+    // emailService.sendEmailWithAttachmentsLogs('androl.smart.tec@gmail.com');
 
-      await new CheckService(
-        fileSystemLogRepository,
-        () => console.log(`${url} is ok`), // undefined
-        (error) => console.log(error) // undefined
-      ).execute(url);
-    });
+    // new SendEmailLogs(emailService, fileSystemLogRepository).execute(
+    //   'androl.smart.tec@gmail.com'
+    // );
+
+    // CronService.createJob('*/5 * * * * *', async () => {
+    //   const url = 'https://google.com';
+    //   await new CheckService(
+    //     fileSystemLogRepository,
+    //     () => console.log(`${url} is ok`), // undefined
+    //     (error) => console.log(error) // undefined
+    //   ).execute(url);
+    // });
   }
 }
